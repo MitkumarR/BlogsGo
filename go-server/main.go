@@ -34,7 +34,7 @@ func main() {
     r.POST("/blogs", createBlog)        
 
     r.NoRoute(func(c *gin.Context) {
-        nextjsURL, err := url.Parse("http://localhost:3000") 
+        nextjsURL, err := url.Parse("http://localhost:7000") 
         if err != nil {
             log.Fatalf("Error parsing Next.js server URL: %v", err)
         }
