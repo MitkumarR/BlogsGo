@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  go-server:
+    build:
+      context: ./go-server  # Path to the Go server folder
+    ports:
+      - "3001:3001"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/blogDB
+    depends_on:
+      - mongo
+
+  nextjs:
+    build:
+      context: ./nextwithgo  # Path to the Next.js folder
+    ports:
+      - "3000:3000"
+    depends_on:
+      - go-server
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
