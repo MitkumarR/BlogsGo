@@ -1,28 +1,23 @@
-# Use Node.js image for building the frontend
-FROM node:18-alpine AS builder
+# Use an official Node.js image as the base image
+FROM node:18-alpine
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the package.json and package-lock.json
-COPY package*.json ./
+# Copy package.json and package-lock.json
+COPY package*.json package-lock*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the frontend source code
+# Copy the rest of the application code
 COPY . .
 
 # Build the Next.js app
 RUN npm run build
 
-# Start the Next.js app
-FROM node:18-alpine
-WORKDIR /app
-COPY --from=builder /app ./
-
-# Expose the port the app runs on
+# Expose port 3000 for the frontend
 EXPOSE 3000
 
-# Command to run the app
-CMD ["npm", "start"]
+# Run the Next.js app in production mode
+CMD ["npm", "run", "dev"]
