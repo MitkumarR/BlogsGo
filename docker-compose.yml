@@ -5,7 +5,7 @@ services:
     build:
       context: ./go-server  # Path to the Go server folder
     ports:
-      - "7001:7001"
+      - "3001:3001"
     environment:
       - MONGODB_URI=mongodb://mongo:27017/blogDB
     depends_on:
@@ -17,7 +17,7 @@ services:
     
     network_mode: "host"
     ports:
-      - "7000:7000"
+      - "3000:3000"
     command: npm run dev
     depends_on:
       - go-server
