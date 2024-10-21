@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3001'; // Update this URL as needed
+const API_URL = 'http://go-server:3001'; // Use the service name from docker-compose.yml
 
 export const getBlogs = async () => {
   try {

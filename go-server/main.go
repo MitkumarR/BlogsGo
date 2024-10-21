@@ -27,8 +27,14 @@ func main() {
     config.ConnectDB()
 
     r := gin.Default()
-    r.Use(cors.Default())
-
+    r.Use(cors.New(cors.Config{
+        AllowOrigins:     []string{"http://localhost:3000"},
+        AllowMethods:     []string{"GET", "POST", "OPTIONS"},
+        AllowHeaders:     []string{"Origin", "Content-Type"},
+        ExposeHeaders:    []string{"Content-Length"},
+        AllowCredentials: true,
+    }))
+    
     r.GET("/blogs", getBlogs)           
     r.GET("/blogs/:id", getBlogByID)    
     r.POST("/blogs", createBlog)        

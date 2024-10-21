@@ -7,12 +7,14 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - MONGODB_URI=mongodb://mongo:27017/blogDB
+      - MONGODB_URI=mongodb+srv://pkp-admin:param22@cluster0.kftllgo.mongodb.net/blogDB?retryWrites=true&w=majority
     env_file:
       - ./go-server/.env
+    networks:
+      - blog-network
     depends_on:
       - mongo
-    # restart: always
+    restart: always
 
   nextjs:
     build:
@@ -21,6 +23,8 @@ services:
       - "3000:3000"          # Expose port 3000 for Next.js
     environment:
       - NODE_ENV=production
+    networks:
+      - blog-network
     depends_on:
       - go-server
     restart: always
@@ -31,8 +35,12 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
-    # restart: always
+    networks:
+      - blog-network
+    restart: always
+
+networks:
+  blog-network:
 
 volumes:
   mongo_data:
-
