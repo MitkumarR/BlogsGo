@@ -10,17 +10,18 @@ services:
       - MONGODB_URI=mongodb://mongo:27017/blogDB
     depends_on:
       - mongo
+    # restart: always
 
   nextjs:
     build:
       context: ./nextwithgo  # Path to the Next.js folder
-    
-    network_mode: "host"
     ports:
-      - "3001:3000"
-    command: npm run dev
+      - "3000:3000"          # Expose port 3000 for Next.js
+    environment:
+      - NODE_ENV=production
     depends_on:
       - go-server
+    restart: always
 
   mongo:
     image: mongo:latest
@@ -28,6 +29,8 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    # restart: always
 
 volumes:
   mongo_data:
+
