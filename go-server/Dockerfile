@@ -21,6 +21,9 @@ WORKDIR /app
 # Copy the Go binary from the builder stage
 COPY --from=builder /app/main .
 
+# Copy .env file to the container
+COPY --from=builder /app/.env .
+
 # Ensure the binary has executable permissions
 RUN chmod +x ./main
 

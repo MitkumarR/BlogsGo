@@ -8,6 +8,8 @@ services:
       - "3001:3001"
     environment:
       - MONGODB_URI=mongodb://mongo:27017/blogDB
+    env_file:
+      - ./go-server/.env
     depends_on:
       - mongo
     # restart: always
