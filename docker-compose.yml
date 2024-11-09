@@ -7,7 +7,7 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - MONGODB_URI=mongodb://mongo:27017/blogDB
+      - MONGODB_URI=mongodb+srv://pkp-admin:param22@cluster0.kftllgo.mongodb.net/blogDB?retryWrites=true&w=majority
     env_file:
       - ./go-server/.env
     depends_on:

@@ -27,5 +27,8 @@ COPY --from=builder /app/.env .
 # Ensure the binary has executable permissions
 RUN chmod +x ./main
 
+# Expose the port for the Go server
+EXPOSE 3001
+
 # Command to run the application
 CMD ["./main"]
