@@ -17,17 +17,18 @@ services:
     restart: always
 
   nextjs:
-    build:
-      context: ./nextwithgo  # Path to the Next.js folder
-    ports:
-      - "3000:3000"          # Expose port 3000 for Next.js
-    environment:
-      - NODE_ENV=production
-    networks:
-      - blog-network
-    depends_on:
-      - go-server
-    restart: always
+      build:
+        context: ./nextwithgo
+      ports:
+        - "3000:3000"
+      environment:
+        - NODE_ENV=production
+        - NEXT_PUBLIC_API_URL=http://go-server:3001  # Pass API URL
+      networks:
+        - blog-network
+      depends_on:
+        - go-server
+      restart: always
 
   mongo:
     image: mongo:latest
@@ -42,5 +43,6 @@ services:
 networks:
   blog-network:
     driver: bridge
+    
 volumes:
   mongo_data:
